@@ -2,7 +2,7 @@ package Geo::Coder::Google;
 
 use strict;
 use warnings;
-our $VERSION = '0.11';
+our $VERSION = '0.11_01';
 
 sub new {
     my ($self, %param) = @_;
@@ -27,5 +27,10 @@ Geo::Coder::Google provides a geocoding functionality using Google Maps API.
 See L<Geo::Coder::Google::V2> for V2 API usage.
 
 See L<Geo::Coder::Google::V3> for V3 API usage.
+
+=head2 new
+
+  my $geocoder=Geo::Coder::Google->new(apiver=>2);
+  my $geocoder=Geo::Coder::Google->new(apiver=>3);
 
 =cut

@@ -6,7 +6,7 @@ use Encode ();
 use Geo::Coder::Google;
 
 if ($ENV{TEST_GEOCODER_GOOGLE_LIVE}) {
-  plan tests => 8;
+  plan tests => 12;
 } else {
   plan skip_all => 'Not running live tests. Set $ENV{TEST_GEOCODER_GOOGLE_LIVE} = 1 to enable';
 }
@@ -16,6 +16,10 @@ if ($ENV{TEST_GEOCODER_GOOGLE_LIVE}) {
     my $location = $geocoder->geocode('548 4th Street, San Francisco, CA');
     delta_ok($location->{geometry}{location}{lat}, 37.778907);
     delta_ok($location->{geometry}{location}{lng}, -122.39732);
+    is($geocoder->{"last_status"}, "OK", "last_staus");
+    isa_ok($geocoder->_json, "JSON");
+    isa_ok($geocoder->{"last_res"}, "HTTP::Response", "last_res");
+    isa_ok($geocoder->{"last_data"}, "HASH", "last_data");
 }
 
 SKIP: {
