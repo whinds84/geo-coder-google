@@ -103,7 +103,7 @@ sub geocode {
     my $json = JSON->new->utf8;
     my $data = $json->decode($res->content);
 
-    Carp::croak(sprintf "Google Maps API returned status '%s'", $data->{status}) unless $data->{status} eq 'OK';
+    Carp::carp(sprintf "Google Maps API returned status '%s'", $data->{status}) unless $data->{status} eq 'OK';
 
     my @results = @{ $data->{results} || [] };
     wantarray ? @results : $results[0];
