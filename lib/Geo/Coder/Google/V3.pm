@@ -23,13 +23,14 @@ sub new {
     my $region   = delete $param{region}   || delete $param{gl};
     my $oe       = delete $param{oe}       || 'utf8';
     my $sensor   = delete $param{sensor}   || 0;
+    my $channel  = delete $param{channel}   || undef;
     my $client   = delete $param{client}   || '';
     my $key      = delete $param{key}      || '';
     my $components = delete $param{components};
    
     bless { 
         ua => $ua, host => $host, language => $language, 
-        region => $region, oe => $oe, sensor => $sensor,
+        region => $region, oe => $oe, sensor => $sensor, channel => $channel,
         client => $client, key => $key,
         components => $components,
     }, $class;
@@ -85,6 +86,7 @@ sub geocode {
     $query_parameters{oe} = $self->{oe};
     $query_parameters{sensor} = $self->{sensor} ? 'true' : 'false';
     my $components_params = $self->_get_components_query_params;
+    $query_parameters{channel} = $self->{channel} if defined $self->{channel};
     $query_parameters{components} = $components_params if defined $components_params;
     $query_parameters{key} = $self->{key} if defined $self->{key};
     $uri->query_form(%query_parameters);
