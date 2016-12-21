@@ -17,8 +17,7 @@ sub new {
     my($class, %param) = @_;
 
     my $ua       = delete $param{ua}       || LWP::UserAgent->new(agent => __PACKAGE__ . "/$VERSION");
-    my $host     = delete $param{host}     || 'maps.googleapis.com';
-    my $output   = delete $param{output}   || 'json'; 
+    my $host     = delete $param{host}     || 'maps.googleapis.com'
     my $language = delete $param{language} || delete $param{hl};
     my $region   = delete $param{region}   || delete $param{gl};
     my $oe       = delete $param{oe}       || 'utf8';
@@ -28,7 +27,7 @@ sub new {
     my $components = delete $param{components};
    
     bless { 
-        ua => $ua, host => $host, language => $language, output => $output,
+        ua => $ua, host => $host, language => $language, 
         region => $region, oe => $oe, sensor => $sensor, channel => $channel,
         client => $client, key => $key, components => $components,
     }, $class;
@@ -77,7 +76,7 @@ sub geocode {
 
     my $loc_param = $param{reverse} ? 'latlng' : 'address';
 
-    my $uri = URI->new("https://$self->{host}/maps/api/geocode/$self->{output}");
+    my $uri = URI->new("https://$self->{host}/maps/api/geocode/json");
     my %query_parameters = ($loc_param => $location);
     $query_parameters{language} = $self->{language} if defined $self->{language};
     $query_parameters{region} = $self->{region} if defined $self->{region};
