@@ -16,15 +16,15 @@ my @ALLOWED_FILTERS = qw/route locality administrative_area postal_code country/
 sub new {
     my($class, %param) = @_;
 
-    my $ua       = delete $param{ua}       || LWP::UserAgent->new(agent => __PACKAGE__ . "/$VERSION");
-    my $host     = delete $param{host}     || 'maps.googleapis.com'
-    my $language = delete $param{language} || delete $param{hl};
-    my $region   = delete $param{region}   || delete $param{gl};
-    my $oe       = delete $param{oe}       || 'utf8';
-    my $channel  = delete $param{channel}  || undef;
-    my $client   = delete $param{client}   || '';
-    my $key      = delete $param{key}      || '';
-    my $components = delete $param{components};
+    my $ua          = delete $param{ua}       || LWP::UserAgent->new(agent => __PACKAGE__ . "/$VERSION");
+    my $host        = delete $param{host}     || 'maps.googleapis.com';
+    my $language    = delete $param{language} || delete $param{hl};
+    my $region      = delete $param{region}   || delete $param{gl};
+    my $oe          = delete $param{oe}       || 'utf8';
+    my $channel     = delete $param{channel}  || undef;
+    my $client      = delete $param{client}   || '';
+    my $key         = delete $param{key}      || '';
+    my $components  = delete $param{components};
    
     bless { 
         ua => $ua, host => $host, language => $language, 
