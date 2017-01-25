@@ -1,5 +1,8 @@
 Revision history for Perl extension Geo::Coder::Google
 
+0.17_01
+   - added channel param (Thanks to jipipayo)
+
 0.17
    - update metadata to v2: listing test prereqs properly, and update the
      github repository
