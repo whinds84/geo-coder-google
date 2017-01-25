@@ -16,22 +16,20 @@ my @ALLOWED_FILTERS = qw/route locality administrative_area postal_code country/
 sub new {
     my($class, %param) = @_;
 
-    my $ua       = delete $param{ua}       || LWP::UserAgent->new(agent => __PACKAGE__ . "/$VERSION");
-    my $host     = delete $param{host}     || 'maps.googleapis.com';
-
-    my $language = delete $param{language} || delete $param{hl};
-    my $region   = delete $param{region}   || delete $param{gl};
-    my $oe       = delete $param{oe}       || 'utf8';
-    my $sensor   = delete $param{sensor}   || 0;
-    my $client   = delete $param{client}   || '';
-    my $key      = delete $param{key}      || '';
-    my $components = delete $param{components};
+    my $ua          = delete $param{ua}       || LWP::UserAgent->new(agent => __PACKAGE__ . "/$VERSION");
+    my $host        = delete $param{host}     || 'maps.googleapis.com';
+    my $language    = delete $param{language} || delete $param{hl};
+    my $region      = delete $param{region}   || delete $param{gl};
+    my $oe          = delete $param{oe}       || 'utf8';
+    my $channel     = delete $param{channel}  || undef;
+    my $client      = delete $param{client}   || '';
+    my $key         = delete $param{key}      || '';
+    my $components  = delete $param{components};
    
     bless { 
         ua => $ua, host => $host, language => $language, 
-        region => $region, oe => $oe, sensor => $sensor,
-        client => $client, key => $key,
-        components => $components,
+        region => $region, oe => $oe, sensor => $sensor, channel => $channel,
+        client => $client, key => $key, components => $components,
     }, $class;
 }
 
@@ -83,7 +81,7 @@ sub geocode {
     $query_parameters{language} = $self->{language} if defined $self->{language};
     $query_parameters{region} = $self->{region} if defined $self->{region};
     $query_parameters{oe} = $self->{oe};
-    $query_parameters{sensor} = $self->{sensor} ? 'true' : 'false';
+    $query_parameters{channel} = $self->{channel} if defined $self->{channel};
     my $components_params = $self->_get_components_query_params;
     $query_parameters{components} = $components_params if defined $components_params;
     $query_parameters{key} = $self->{key} if defined $self->{key};
