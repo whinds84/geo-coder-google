@@ -28,7 +28,7 @@ sub new {
    
     bless { 
         ua => $ua, host => $host, language => $language, 
-        region => $region, oe => $oe, sensor => $sensor, channel => $channel,
+        region => $region, oe => $oe, channel => $channel,
         client => $client, key => $key, components => $components,
     }, $class;
 }
